@@ -4,7 +4,7 @@ module.exports = app => {
 
   app.get('/', (req, res) => {
 
-    Burger.findAll()
+      Burger.findAll()
       .then(burgers => res.render('index', { burgers }))
       .catch(e => console.log(e))
   })

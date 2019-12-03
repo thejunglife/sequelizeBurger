@@ -8,11 +8,10 @@ const getBurgers = () => {
 
 const addBurger = (name) => {
     axios.post('/burgers', {
-      name,
-      eaten: false
+      name
     })
     .then(() => {
-      console.log('Burger added')
+      window.location.reload()
     })
     .catch(e => console.log(e))
 }
@@ -20,7 +19,7 @@ const addBurger = (name) => {
 const eatBurger = id => {
 axios.put(`/burgers/${id}`)
     .then(() => {
-      console.log('Burger Eaten')
+     window.location.reload()
     })
     .catch(e => console.log(e))
 }
@@ -28,27 +27,27 @@ axios.put(`/burgers/${id}`)
 const removeBurger = id => {
   axios.delete(`/burgers/${id}`)
       .then(() => {
-        console.log('burger removed')
+      window.location.reload()
       })
       .catch(e => console.log(e))
 }
 
 
 
-document.getElementById('addBurger')
-.addEventListener('click', e=> {
+document.getElementById('addBurger').addEventListener('click', e => {
   e.preventDefault()
+
   addBurger(document.getElementById('burger').value)
   document.getElementById('burger').value = ''
-  window.location.reload()
+
 })
 
 document.addEventListener('click', e => {
   if (e.target.parentNode.className.includes('eatBurger')) {
    eatBurger(e.target.parentNode.dataset.burger)
-   window.location.reload()
+   
   } else if (e.target.parentNode.className.includes('removeBurger')) {
     removeBurger(e.target.parentNode.dataset.burger)
-    window.location.reload()
+    
   }
 })

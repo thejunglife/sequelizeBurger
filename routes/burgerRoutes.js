@@ -25,10 +25,11 @@ app.put('/burgers/:id', (req, res) => {
 
   // DELETE one pizza
 app.delete('/burgers/:id', (req, res) => {
-    Item.findOne({ where: { id: parseInt(req.params.id) }})
+    Burger.findOne({ where: { id: parseInt(req.params.id) }})
     .then(burger => burger.destroy())
     .then(() => res.sendStatus(200))
     .catch(e => console.log(e))
 })
 
 }
+
