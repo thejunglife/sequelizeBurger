@@ -41,7 +41,6 @@ document.getElementById('addBurger')
   addBurger(document.getElementById('burger').value)
   document.getElementById('burger').value = ''
   window.location.reload()
- 
 })
 
 document.addEventListener('click', e => {

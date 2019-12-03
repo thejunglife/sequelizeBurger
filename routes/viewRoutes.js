@@ -1,12 +1,13 @@
-const {
-  burgers: {
-    getBurgers
-  }
-} = require('../controllers')
+const { Burger } = require('../models')
+
 module.exports = app => {
+
   app.get('/', (req, res) => {
-    getBurgers(burgers => {
-    res.render('index', { burgers })
-    })
+
+    Burger.findAll()
+      .then(burgers => res.render('index', { burgers }))
+      .catch(e => console.log(e))
   })
+
 }
+

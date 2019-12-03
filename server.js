@@ -1,6 +1,8 @@
+require('dotenv').config()
 const express = require('express')
 const { join }  = require('path')
 
+const db = require('./config')
 const app = express()
 
 app.use(express.static(join(__dirname, 'public')))
@@ -11,7 +13,10 @@ app.set('view engine', '.hbs')
 
 require('./routes')(app)
 
-app.listen(process.env.PORT || 3000)
+db.sync()
+    .then(() => app.listen(process.env.PORT))
+    .catch(e => console.log(e))
 
-// add video 41min
+
+
 

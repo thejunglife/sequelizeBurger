@@ -1,31 +1,34 @@
-const { burgers: { getBurgers, addBurger, eatBurger, removeBurger } } = require('../controllers')
+const { Burger } = require('../models')
 
 module.exports = app => {
   // GET all Burgers
 app.get('/burgers', (req, res) => {
-  getBurgers(burgers => {
-res.json(burgers)
-  })
+  Burger.findAll()
+      .then(burgers => res.json(burgers))
+      .catch(e => console.log(e))
   
 })
   // POST one burger
 app.post('/burgers', (req, res) => {
   console.log(req.body)
-  addBurger(req.body.name, req.body.eaten, () => {
-    res.sendStatus(200)
-  })
+  Burger.create(req.body)
+    .then(() => res.sendStatus(200))
+    .catch(e => console.log(e))
 })
   // PUT one burger
 app.put('/burgers/:id', (req, res) => {
-    eatBurger(parseInt(req.params.id), () => {
-      res.sendStatus(200)
-    })
+    Burger.findOne({ where: { id: parseInt(req.params.id) }})
+    .then(burger => burger.update({ eaten: !burger.eaten}))
+    .then(() => res.sendStatus(200))
+    .catch(e => console.log(e))
 })
+
   // DELETE one pizza
 app.delete('/burgers/:id', (req, res) => {
-    removeBurger(parseInt(req.params.id), () => {
-      res.sendStatus(200)
-    })
+    Item.findOne({ where: { id: parseInt(req.params.id) }})
+    .then(burger => burger.destroy())
+    .then(() => res.sendStatus(200))
+    .catch(e => console.log(e))
 })
 
 }
